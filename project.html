@@ -1,0 +1,250 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Builder</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    
+    <section id="authSection" class="auth-container">
+
+        <!-- Login -->
+        <div id="loginBox" class="auth-box">
+            <h1>Quiz Builder</h1>
+            <p>Login to continue</p>
+
+            <input type="text" id="loginUsername" placeholder="Username">
+            <input type="password" id="loginPassword" placeholder="Password">
+
+            <button onclick="login()">Login</button>
+
+            <p class="switch">
+                Don't have an account?
+                <span onclick="showSignup()">Sign Up</span>
+            </p>
+
+            <p id="loginMessage" class="message"></p>
+        </div>
+
+        <!-- Signup -->
+        <div id="signupBox" class="auth-box hidden">
+            <h1>Create Account</h1>
+            <p>Register for Quiz Builder</p>
+
+            <input type="text" id="signupUsername" placeholder="Username">
+            <input type="email" id="signupEmail" placeholder="Email">
+            <input type="password" id="signupPassword" placeholder="Password">
+
+            <button onclick="signup()">Sign Up</button>
+
+            <p class="switch">
+                Already have an account?
+                <span onclick="showLogin()">Login</span>
+            </p>
+
+            <p id="signupMessage" class="message"></p>
+        </div>
+
+    </section>
+
+
+    <!-- ================= MAIN APPLICATION ================= -->
+    <section id="appSection" class="hidden">
+
+        <!-- Navigation -->
+        <header class="navbar">
+
+            <div class="logo">
+                Quiz Builder
+            </div>
+
+            <nav>
+                <button onclick="showModule('dashboard')">Dashboard</button>
+                <button onclick="showModule('createQuiz')">Create Quiz</button>
+                <button onclick="showModule('quizList')">My Quizzes</button>
+                <button onclick="showModule('profile')">Profile</button>
+                <button onclick="logout()" class="logout">Logout</button>
+            </nav>
+
+        </header>
+
+
+        <!-- ================= DASHBOARD ================= -->
+        <main id="dashboard" class="module">
+
+            <div class="welcome">
+                <h1>Welcome, <span id="welcomeUser"></span>!</h1>
+                <p>Create, manage and attempt quizzes.</p>
+            </div>
+
+            <div class="dashboard-grid">
+
+                <div class="dashboard-card">
+                    <h2 id="quizCount">0</h2>
+                    <p>Total Quizzes</p>
+                </div>
+
+                <div class="dashboard-card">
+                    <h2 id="questionCount">0</h2>
+                    <p>Total Questions</p>
+                </div>
+
+                <div class="dashboard-card">
+                    <h2 id="attemptCount">0</h2>
+                    <p>Attempts</p>
+                </div>
+
+            </div>
+
+            <div class="quick-actions">
+                <h2>Quick Actions</h2>
+
+                <button onclick="showModule('createQuiz')">
+                    + Create New Quiz
+                </button>
+
+                <button onclick="showModule('quizList')">
+                    View My Quizzes
+                </button>
+            </div>
+
+        </main>
+
+
+        <!-- ================= CREATE QUIZ ================= -->
+        <main id="createQuiz" class="module hidden">
+
+            <div class="module-header">
+                <h1>Create Quiz</h1>
+                <p>Create your own custom quiz.</p>
+            </div>
+
+            <div class="quiz-form">
+
+                <label>Quiz Title</label>
+                <input type="text" id="quizTitle"
+                       placeholder="Enter quiz title">
+
+                <label>Description</label>
+                <textarea id="quizDescription"
+                          placeholder="Enter quiz description"></textarea>
+
+                <h2>Questions</h2>
+
+                <div id="questionsContainer"></div>
+
+                <button class="secondary-btn"
+                        onclick="addQuestion()">
+                    + Add Question
+                </button>
+
+                <button class="primary-btn"
+                        onclick="saveQuiz()">
+                    Save Quiz
+                </button>
+
+                <p id="quizMessage" class="message"></p>
+
+            </div>
+
+        </main>
+
+
+        <!-- ================= QUIZ LIST ================= -->
+        <main id="quizList" class="module hidden">
+
+            <div class="module-header">
+                <h1>My Quizzes</h1>
+                <p>Manage and attempt your quizzes.</p>
+            </div>
+
+            <div id="quizContainer" class="quiz-grid"></div>
+
+        </main>
+
+
+        <!-- ================= ATTEMPT QUIZ ================= -->
+        <main id="attemptQuiz" class="module hidden">
+
+            <div class="module-header">
+                <h1 id="attemptTitle"></h1>
+                <p id="attemptDescription"></p>
+            </div>
+
+            <div id="attemptQuestions"></div>
+
+            <button class="primary-btn"
+                    onclick="submitQuiz()">
+                Submit Quiz
+            </button>
+
+        </main>
+
+
+        <!-- ================= RESULT ================= -->
+        <main id="result" class="module hidden">
+
+            <div class="result-box">
+
+                <h1>Quiz Completed!</h1>
+
+                <div class="score-circle">
+                    <span id="score"></span>
+                </div>
+
+                <h2 id="resultMessage"></h2>
+
+                <button onclick="showModule('quizList')">
+                    Back to Quizzes
+                </button>
+
+                <button onclick="showModule('dashboard')">
+                    Dashboard
+                </button>
+
+            </div>
+
+        </main>
+
+
+        <!-- ================= PROFILE ================= -->
+        <main id="profile" class="module hidden">
+
+            <div class="profile-box">
+
+                <h1>My Profile</h1>
+
+                <div class="profile-info">
+                    <p>
+                        <strong>Username:</strong>
+                        <span id="profileUsername"></span>
+                    </p>
+
+                    <p>
+                        <strong>Email:</strong>
+                        <span id="profileEmail"></span>
+                    </p>
+                </div>
+
+                <button class="logout"
+                        onclick="logout()">
+                    Logout
+                </button>
+
+            </div>
+
+        </main>
+
+    </section>
+
+
+    <script src="script.js"></script>
+
+</body>
+</html>
+
